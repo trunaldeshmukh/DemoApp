@@ -1,0 +1,1 @@
+This repo has a demo dotnet core app used for Kubernetes handson workshop.
