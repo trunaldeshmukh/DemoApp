@@ -12,7 +12,7 @@ pipeline {
    stages {
       stage('Refresh pipeline') {
         when {
-          expression { "${Environment}" == 'Refresh' }
+          expression { "${params.Environment}" == 'Refresh' }
         }
         steps {
           echo "Pipeline refreshed"
@@ -20,16 +20,17 @@ pipeline {
       }
       stage('Build') {
 	    when {
-          expression { "${Environment}" == 'Build' }
-		  expression { "${Environment}" == 'QA'}
+          expression { "${params.Environment}" == 'Build' }
+		  expression { "${params.Environment}" == 'QA'}
         }
          steps {
             echo 'Building the application'
+			sh 'dotnet build ./DemoApp/DemoApp.csproj'
          }
       }
 	  stage('QA') {
 	     when {
-		   expression { "${Environment}" == 'QA'}
+		   expression { "${params.Environment}" == 'QA'}
 		 }
          steps {
             echo 'Deploying on QA'
@@ -37,7 +38,7 @@ pipeline {
       }
 	  stage('Stage') {
 		when {
-			expression { "${Environment}" == 'Stage'}
+			expression { "${params.Environment}" == 'Stage'}
 		 }
          steps {
             echo 'Deploying on Stage'
@@ -45,7 +46,7 @@ pipeline {
       }
 	  stage('Prod') {
 	     when {
-		    expression { "${Environment}" == 'Prod'}
+		    expression { "${params.Environment}" == 'Prod'}
 		 }
          steps {
             echo 'Deploying on Prod'
