@@ -28,19 +28,25 @@ pipeline {
          }
       }
 	  stage('QA') {
-		 expression { "${Environment}" == 'QA'}
+	     when {
+		   expression { "${Environment}" == 'QA'}
+		 }
          steps {
             echo 'Deploying on QA'
          }
       }
 	  stage('Stage') {
-		 expression { "${Environment}" == 'Stage'}
+		when {
+			expression { "${Environment}" == 'Stage'}
+		 }
          steps {
             echo 'Deploying on Stage'
          }
       }
 	  stage('Prod') {
-		 expression { "${Environment}" == 'Prod'}
+	     when {
+		    expression { "${Environment}" == 'Prod'}
+		 }
          steps {
             echo 'Deploying on Prod'
          }
