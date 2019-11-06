@@ -1,26 +1,28 @@
 pipeline {
      agent { label 'master' }
- 
+    parameters{
+     choice(
+        name: 'Environment',
+        choices: "Refresh\nBuild\nQA\nStage\nProd",
+        description: 'Please select the pipeline action'
+      )
+   } 
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('QA') {
+        stage('Test') {
             steps {
-                echo 'Deployed on QA..'
+                echo 'Testing..'
             }
         }
-        stage('Stage') {
+        stage('Deploy') {
             steps {
-                echo 'Deployed on Stage....'
-            }
-        }
-        stage('Prod') {
-            steps {
-                echo 'Deployed on Prod....'
+                echo 'Deploying....'
             }
         }
     }
 }
+
